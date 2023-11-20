@@ -1,7 +1,7 @@
 package com.biblioteca.entities;
 
 public class Aluno extends Usuario{
-    private Integer Matricula;
+    private Integer matricula;
 
     public Aluno() {
         super();
@@ -9,22 +9,22 @@ public class Aluno extends Usuario{
 
     public Aluno(String nome, Integer matricula) {
         super(nome);
-        this.Matricula = matricula;
+        this.matricula = matricula;
     }
 
 
     public Integer getMatricula() {
-        return this.Matricula;
+        return this.matricula;
     }
 
     public void setMatricula(Integer matricula) {
-        this.Matricula = matricula;
+        this.matricula = matricula;
     }
 
     @Override
     public String toString() {
        return new StringBuilder(super.toString())
-       .append(", Matricula=").append(Matricula)
+       .append(", Matricula=").append(matricula)
        .toString();
     }
 }

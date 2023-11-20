@@ -2,7 +2,7 @@ package com.biblioteca.entities;
 
 
 public class Professor extends Usuario{
-    private Integer Codigo;
+    private Integer codigo;
 
     public Professor() {
         super();
@@ -10,22 +10,22 @@ public class Professor extends Usuario{
 
     public Professor(String nome, Integer codigo) {
         super(nome);
-        Codigo = codigo;
+        this.codigo = codigo;
     }
 
     public Integer getCodigo() {
-      return Codigo;
+      return codigo;
     }
 
     public void setCodigo(Integer codigo) {
-      Codigo = codigo;
+      this.codigo = codigo;
     }
     
 
     @Override
     public String toString() {
       return new StringBuilder(super.toString())
-        .append(", Codigo=").append(Codigo)
+        .append(", Codigo=").append(codigo)
         .toString();
     }
 

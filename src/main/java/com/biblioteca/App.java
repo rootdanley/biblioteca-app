@@ -8,9 +8,7 @@ public class App
 {
     public static void main( String[] args )
     {
-
         Scanner sc = new Scanner(System.in);
-
 
         System.out.print("Qual seu nivel de acesso? [prf - Professor] | [aln - Aluno] | [blt - Bibliotecario] | [Sair - Fechar Sistema]: ");
         String nivelDeAcesso = sc.nextLine().toLowerCase();
@@ -37,8 +35,6 @@ public class App
               System.out.println(e.getMessage());
              }
       
-        } while(opcao != 0);
-
-
+       } while(opcao != 0);
     }
 }

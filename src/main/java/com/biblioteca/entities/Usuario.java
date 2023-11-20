@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-    private String Nome;
+    private String nome;
     private List<LivroFisico> LivrosEmprestados = new ArrayList<>();
     private List<LivroDigital> LivrosBaixados = new ArrayList<>();
     private List<LivroFisico> LivrosEmPosse = new ArrayList<>();
@@ -12,15 +12,15 @@ public class Usuario {
     }
 
     public Usuario(String nome) {
-        Nome = nome;
+        this.nome = nome;
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        this.nome = nome;
     }
 
     public void pegarLivro(LivroFisico livro) { }
@@ -35,7 +35,7 @@ public class Usuario {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Usuario{");
-        sb.append("Nome='").append(Nome).append('\'');
+        sb.append("Nome='").append(nome).append('\'');
         sb.append(", LivrosEmprestados=").append(LivrosEmprestados);
         sb.append(", LivrosBaixados=").append(LivrosBaixados);
         sb.append(", LivrosEmPosse=").append(LivrosEmPosse);

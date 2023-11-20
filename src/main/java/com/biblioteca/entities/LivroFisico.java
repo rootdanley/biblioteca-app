@@ -2,7 +2,7 @@ package com.biblioteca.entities;
 
 public class LivroFisico extends Livro {
 
-    private Integer CopiasDisponiveis;
+    private Integer copiasDisponiveis;
 
 
     public LivroFisico() {
@@ -11,24 +11,24 @@ public class LivroFisico extends Livro {
 
     public LivroFisico(String titulo, String anoPublicacao, String autor, Integer copiasDisponiveis) {
         super(titulo, anoPublicacao, autor);
-        CopiasDisponiveis = copiasDisponiveis;
+        this.copiasDisponiveis = copiasDisponiveis;
     }
 
 
     public Integer getCopiasDisponiveis() {
-        return CopiasDisponiveis;
+        return copiasDisponiveis;
     }
 
     public void setCopiasDisponiveis(Integer copiasDisponiveis) {
-        CopiasDisponiveis = copiasDisponiveis;
+        this.copiasDisponiveis = copiasDisponiveis;
     }
 
     public void emprestarLivro() {
-        this.CopiasDisponiveis = this.CopiasDisponiveis - 1;
+        this.copiasDisponiveis += - 1;
     }
 
     public void devolverLivro() {
-        this.CopiasDisponiveis = this.CopiasDisponiveis + 1;
+        this.copiasDisponiveis += + 1;
     }
 
 
