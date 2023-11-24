@@ -1,13 +1,30 @@
 package com.biblioteca;
 
-import com.biblioteca.exceptions.AcessoInvalidoException;
+import com.biblioteca.entities.*;
 
-import java.util.Scanner;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
+
+
+    Biblioteca b = new Biblioteca();
+
+    b.adicionarLivro(new LivroFisico("Java", "2223","maria","Fisico",2));
+    b.adicionarLivro(new LivroFisico("Head First Java", "2023","Katie Sierra","Fisico",4));
+
+    b.adicionarLivro(new LivroDigital("Javascript", "2023", "carlos", "Digital", "pdf", 23.0, "www.google.com"));
+
+
+        b.livrosDisponiveis();
+
+
+
+        System.out.println();
+
+        b.removerLivro("Head First Java");
+        b.livrosDisponiveis();
+      /*
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Qual seu nivel de acesso? [prf - Professor] | [aln - Aluno] | [blt - Bibliotecario] | [Sair - Fechar Sistema]: ");
@@ -36,5 +53,7 @@ public class App
              }
       
        } while(opcao != 0);
+
+       */
     }
 }

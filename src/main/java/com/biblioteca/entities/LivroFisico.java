@@ -9,8 +9,8 @@ public class LivroFisico extends Livro {
         super();
     }
 
-    public LivroFisico(String titulo, String anoPublicacao, String autor, Integer copiasDisponiveis) {
-        super(titulo, anoPublicacao, autor);
+    public LivroFisico(String titulo, String anoPublicacao, String autor, String tipo, Integer copiasDisponiveis) {
+        super(titulo, anoPublicacao, autor, tipo);
         this.copiasDisponiveis = copiasDisponiveis;
     }
 
@@ -31,5 +31,11 @@ public class LivroFisico extends Livro {
         this.copiasDisponiveis += + 1;
     }
 
-
+    @Override
+    public String toString() {
+        return new StringBuilder(super.toString())
+            .append("', copias disponiveis='").append(copiasDisponiveis)
+            .append("'")
+            .toString();
+    }
 }

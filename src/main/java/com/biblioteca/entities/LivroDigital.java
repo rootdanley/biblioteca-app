@@ -2,7 +2,7 @@ package com.biblioteca.entities;
 
 public class LivroDigital extends Livro{
     private String formato;
-    private Integer tamanho;
+    private Double tamanho;
     private String url;
 
 
@@ -10,8 +10,9 @@ public class LivroDigital extends Livro{
         super();
     }
 
-    public LivroDigital(String titulo, String anoPublicacao, String autor, String formato, Integer tamanho, String url) {
-        super(titulo, anoPublicacao, autor);
+    public LivroDigital(String titulo, String anoPublicacao, String autor, String tipo, String formato, Double tamanho,
+                        String url) {
+        super(titulo, anoPublicacao, autor, tipo);
         this.formato = formato;
         this.tamanho = tamanho;
         this.url = url;
@@ -25,11 +26,11 @@ public class LivroDigital extends Livro{
         this.formato = formato;
     }
 
-    public Integer getTamanho() {
+    public Double getTamanho() {
         return tamanho;
     }
 
-    public void setTamanho(Integer tamanho) {
+    public void setTamanho(Double tamanho) {
         this.tamanho = tamanho;
     }
 
@@ -47,14 +48,11 @@ public class LivroDigital extends Livro{
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("LivroDigital[");
-        sb.append("titulo='").append(getTitulo()).append('\'');;
-        sb.append(", Ano de Publicacao='").append(getAnoPublicacao()).append('\'');;
-        sb.append(", Autor: ").append(getAutor()).append('\'');;
-        sb.append(", formato='").append(formato).append('\'');
-        sb.append(", tamanho=").append(tamanho);
-        sb.append(", url='").append(url).append('\'');
-        sb.append(']');
-        return sb.toString();
+        return new StringBuilder(super.toString())
+            .append("', Formato='").append(formato)
+            .append("', Tamanho='").append(tamanho)
+            .append("', url='").append(url)
+            .append("'")
+            .toString();
     }
 }

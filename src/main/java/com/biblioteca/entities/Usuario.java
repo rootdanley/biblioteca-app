@@ -4,9 +4,11 @@ import java.util.List;
 
 public class Usuario {
     private String nome;
-    private List<LivroFisico> LivrosEmprestados = new ArrayList<>();
-    private List<LivroDigital> LivrosBaixados = new ArrayList<>();
-    private List<LivroFisico> LivrosEmPosse = new ArrayList<>();
+    private List<LivroFisico> livrosEmprestados = new ArrayList<>();
+    private List<LivroDigital> livrosBaixados = new ArrayList<>();
+    private List<LivroFisico> livrosEmPosse = new ArrayList<>();
+
+    static Integer escolha;
 
     public Usuario() {
     }
@@ -23,12 +25,19 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void pegarLivro(LivroFisico livro) { }
+    public void pegarLivro(LivroFisico livro) {
+        Biblioteca b = new Biblioteca();
+         System.out.println("---------------------------------------------------------");
+         System.out.println("> Aqui estao todos os livros registrados na biblioteca: ");
+         System.out.println("---------------------------------------------------------");
+        b.livrosDisponiveis();
+
+    }
 
     public void devolverLivro(LivroFisico livro) { }
 
     public void baixarLivro(LivroDigital livro) {
-       LivrosBaixados.add(livro);
+       livrosBaixados.add(livro);
     }
 
 
@@ -36,9 +45,9 @@ public class Usuario {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Usuario{");
         sb.append("Nome='").append(nome).append('\'');
-        sb.append(", LivrosEmprestados=").append(LivrosEmprestados);
-        sb.append(", LivrosBaixados=").append(LivrosBaixados);
-        sb.append(", LivrosEmPosse=").append(LivrosEmPosse);
+        sb.append(", LivrosEmprestados=").append(livrosEmprestados);
+        sb.append(", LivrosBaixados=").append(livrosBaixados);
+        sb.append(", LivrosEmPosse=").append(livrosEmPosse);
         sb.append('}');
         return sb.toString();
     }

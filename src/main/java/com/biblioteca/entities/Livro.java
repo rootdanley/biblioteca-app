@@ -1,17 +1,19 @@
 package com.biblioteca.entities;
 
-public abstract class Livro {
+public class Livro {
     private String titulo;
     private String anoPublicacao;
     private String autor;
+    private String tipo;
 
     public Livro() {
     }
 
-    public Livro(String titulo, String anoPublicacao, String autor) {
+    public Livro(String titulo, String anoPublicacao, String autor, String tipo) {
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.autor = autor;
+        this.tipo = tipo;
     }
 
     public String getTitulo() {
@@ -41,11 +43,14 @@ public abstract class Livro {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Livro{");
+        final StringBuilder sb = new StringBuilder("Livro: ");
         sb.append("titulo='").append(titulo).append('\'');
         sb.append(", anoPublicacao='").append(anoPublicacao).append('\'');
         sb.append(", autor='").append(autor).append('\'');
-        sb.append('}');
+        sb.append(", tipo='").append(tipo);
         return sb.toString();
     }
+
+
+
 }

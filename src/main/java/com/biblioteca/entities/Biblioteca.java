@@ -10,9 +10,10 @@ public class Biblioteca{
     public Biblioteca(){ };
 
 
-    public void cadastrarUsuario(Usuario user) {
-        usuarios.add(user);
+    public void cadastrarUsuario(Usuario u) {
+        usuarios.add(u);
     }
+
 
 
     public List<Livro> buscarLivro(String titulo) {
@@ -36,13 +37,39 @@ public class Biblioteca{
                 return usuario;
             }
         }
-        return null;
+        return null; // falta criar a excecao caso nao ache o usuario
+    }
+
+    public void adicionarLivro(Livro l) {
+        this.livros.add(l);
     }
 
 
-    public void realizarEmprestimo(Usuario user, Livro livro){ }
+    public void removerLivro(String titulo) {
+        List<Livro> removerLivro = new ArrayList<>();
+
+        for(Livro livro : livros){
+            if(livro.getTitulo().equalsIgnoreCase(titulo)){
+                removerLivro.add(livro);
+            }
+        }
+        livros.removeAll(removerLivro);
+    }
+
+    public void realizarEmprestimo(Usuario user, Livro livro){
+        List<Livro> realizarEmprestimo = new ArrayList<>();
+
+    }
 
     public void devolverEmprestimo(Usuario user, Livro livro){ }
+
+
+    public void livrosDisponiveis() {
+        for(Livro livro : livros){
+            System.out.println(livro);
+        }
+
+    }
     
     
 }
