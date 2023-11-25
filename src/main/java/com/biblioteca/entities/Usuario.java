@@ -1,14 +1,18 @@
 package com.biblioteca.entities;
+import com.biblioteca.exceptions.LimiteExcedidoException;
+import com.biblioteca.exceptions.LivroInexistenteException;
+import com.biblioteca.exceptions.NaoSuportaLivroDigitalException;
+
+import javax.naming.LimitExceededException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
+
     private String nome;
-    private List<LivroFisico> livrosEmprestados = new ArrayList<>();
+    private List<LivroFisico> livrosEmprestados = new ArrayList<>();//historico do usario
     private List<LivroDigital> livrosBaixados = new ArrayList<>();
     private List<LivroFisico> livrosEmPosse = new ArrayList<>();
-
-    static Integer escolha;
 
     public Usuario() {
     }
@@ -17,24 +21,53 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public List<LivroFisico> getLivrosEmPosse() {
+        return livrosEmPosse;
+    }
+
     public String getNome() {
         return nome;
     }
+
+
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void pegarLivro(LivroFisico livro) {
-        Biblioteca b = new Biblioteca();
-         System.out.println("---------------------------------------------------------");
-         System.out.println("> Aqui estao todos os livros registrados na biblioteca: ");
-         System.out.println("---------------------------------------------------------");
-        b.livrosDisponiveis();
-
+    public boolean podePegar() {
+        return true;
     }
 
-    public void devolverLivro(LivroFisico livro) { }
+    /*public void pegarLivro(LivroFisico livro, Usuario usuario){
+        if(usuario.podePegar()) {
+        }else{
+        throw new LimiteExcedidoException("Error: Limite de Livros Excedido");
+        }
+        if (livro instanceof LivroFisico) {
+            LivroFisico livroPego = (LivroFisico) livro;
+                livrosEmPosse.add(livroPego);
+                livrosEmprestados.add(livroPego);
+        }
+        else{
+            throw new LivroInexistenteException("Error: Livro Não Encontrado");
+        }
+
+    }*/
+
+    public void devolverLivro(LivroFisico livro) {
+        if(livro instanceof LivroFisico) {
+            LivroFisico livroDevolver  = (LivroFisico) livro;
+
+            livrosEmPosse.remove(livroDevolver);
+            livrosEmprestados.add(livroDevolver);
+            livroDevolver.devolverLivro();
+
+        }
+        else {
+            throw new NaoSuportaLivroDigitalException("Error: Não suporta a devolução de Livro Digital");
+        }
+    }
 
     public void baixarLivro(LivroDigital livro) {
        livrosBaixados.add(livro);
@@ -51,4 +84,6 @@ public class Usuario {
         sb.append('}');
         return sb.toString();
     }
+
+
 }

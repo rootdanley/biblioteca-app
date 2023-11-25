@@ -1,6 +1,6 @@
 package com.biblioteca.entities;
 
-public class Livro {
+public class Livro{
     private String titulo;
     private String anoPublicacao;
     private String autor;
@@ -39,6 +39,7 @@ public class Livro {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
 
 
     @Override

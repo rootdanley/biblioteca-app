@@ -1,4 +1,6 @@
 package com.biblioteca.entities;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LivroFisico extends Livro {
 
@@ -12,8 +14,8 @@ public class LivroFisico extends Livro {
     public LivroFisico(String titulo, String anoPublicacao, String autor, String tipo, Integer copiasDisponiveis) {
         super(titulo, anoPublicacao, autor, tipo);
         this.copiasDisponiveis = copiasDisponiveis;
-    }
 
+    }
 
     public Integer getCopiasDisponiveis() {
         return copiasDisponiveis;
