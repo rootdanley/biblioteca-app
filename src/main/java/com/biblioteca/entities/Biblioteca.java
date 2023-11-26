@@ -20,23 +20,20 @@ public class Biblioteca{
     }
 
 
+
     public void cadastrarUsuario(Usuario u) {
         boolean usuarioJaExiste = false;
 
         for (Usuario user : usuarios) {
             if (user instanceof Aluno && ((Aluno) user).getMatricula() == ((Aluno) u).getMatricula()) {
                 usuarioJaExiste = true;
-                throw new UsuarioJaExistenteException("Usuari já existe no sistema");
+                throw new UsuarioJaExistenteException("Usuario já existe no sistema");
             }
         }
 
-        if (!usuarioJaExiste) {
-            usuarios.add(u);
-            System.out.println("Usuário adicionado com sucesso.");
-        }
+        usuarios.add(u);
+        System.out.println("Usuário adicionado com sucesso.");
     }
-
-
 
     public List<Livro> buscarLivro(String titulo) {
         List<Livro> resultadoDaBusca = new ArrayList<>();
@@ -51,8 +48,24 @@ public class Biblioteca{
         return resultadoDaBusca;
     }
 
+
+    public LivroFisico teste(String titulo) throws IllegalAccessException {
+
+        for (Livro livs : livros){
+            if (livs instanceof LivroFisico && ((LivroFisico) livs).getTitulo().equals(titulo)){
+                return (LivroFisico) livs;
+            } else {
+                throw new IllegalAccessException("nao e fisico");
+            }
+        }
+
+        return null;
+    }
+
+
     public Usuario buscarUsuario (int id){
         for(Usuario usuario : usuarios){
+
             if(usuario instanceof Aluno && ((Aluno) usuario).getMatricula() == id){
                 return usuario;
             }else if(usuario instanceof Professor && ((Professor) usuario).getCodigo() == id) {
@@ -94,8 +107,8 @@ public class Biblioteca{
     }
 
     public void realizarEmprestimo(Usuario user, Livro livro){
-    }
 
+    }
 
     public void devolverEmprestimo(Usuario user, Livro livro){
       if(livro instanceof LivroFisico){
@@ -127,6 +140,31 @@ public class Biblioteca{
     }
 
 
+    
+
+
+    public Usuario Autenticar(Integer id){
+
+        Usuario usuarioAutenticado = null;
+        for (Usuario users : usuarios){
+            if (users instanceof Aluno && ((Aluno) users).getMatricula() == id){
+                usuarioAutenticado = users;
+                return usuarioAutenticado;
+            }
+            else if (users instanceof Professor && ((Professor) users).getCodigo() == id){
+                usuarioAutenticado = users;
+                return usuarioAutenticado;
+            }
+        }
+
+
+        if(usuarioAutenticado == null){
+            throw new UsuarioNaoEncontradoException("Nao existe");
+
+        }
+
+        return null;
+    }
 
     public void livrosDisponiveis() {
         for(Livro livro : livros){

@@ -15,6 +15,7 @@ public class Usuario {
     private List<LivroFisico> livrosEmPosse = new ArrayList<>();
 
     public Usuario() {
+
     }
 
     public Usuario(String nome) {
@@ -24,36 +25,23 @@ public class Usuario {
     public List<LivroFisico> getLivrosEmPosse() {
         return livrosEmPosse;
     }
+    public List<LivroFisico> getLivrosEmprestados() {
+        return livrosEmprestados;
+    }
 
     public String getNome() {
         return nome;
     }
 
-
-
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public boolean podePegar() {
-        return true;
+
+    public void pegarLivro(LivroFisico l){
+        livrosEmPosse.add(l);
     }
 
-    /*public void pegarLivro(LivroFisico livro, Usuario usuario){
-        if(usuario.podePegar()) {
-        }else{
-        throw new LimiteExcedidoException("Error: Limite de Livros Excedido");
-        }
-        if (livro instanceof LivroFisico) {
-            LivroFisico livroPego = (LivroFisico) livro;
-                livrosEmPosse.add(livroPego);
-                livrosEmprestados.add(livroPego);
-        }
-        else{
-            throw new LivroInexistenteException("Error: Livro Não Encontrado");
-        }
-
-    }*/
 
     public void devolverLivro(LivroFisico livro) {
         if(livro instanceof LivroFisico) {
@@ -73,7 +61,6 @@ public class Usuario {
        livrosBaixados.add(livro);
     }
 
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Usuario{");
@@ -84,6 +71,5 @@ public class Usuario {
         sb.append('}');
         return sb.toString();
     }
-
 
 }
