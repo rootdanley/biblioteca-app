@@ -28,10 +28,5 @@ public class Professor extends Usuario{
         .append(", Codigo=").append(codigo)
         .toString();
     }
-    public boolean podePegar(){
-        return true;
-    }
 
-   
-    
 }

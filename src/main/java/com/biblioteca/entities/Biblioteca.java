@@ -21,19 +21,19 @@ public class Biblioteca{
 
 
 
-    public void cadastrarUsuario(Usuario u) {
-        boolean usuarioJaExiste = false;
-
-        for (Usuario user : usuarios) {
-            if (user instanceof Aluno && ((Aluno) user).getMatricula() == ((Aluno) u).getMatricula()) {
-                usuarioJaExiste = true;
-                throw new UsuarioJaExistenteException("Usuario já existe no sistema");
-            }
+  public void cadastrarUsuario(Usuario u) {
+    for (Usuario user : usuarios) {
+        if (user instanceof Aluno && u instanceof Aluno && ((Aluno) user).getMatricula() == ((Aluno) u).getMatricula()) {
+            throw new UsuarioJaExistenteException("Aluno já existe no sistema");
+        } else if (user instanceof Professor && u instanceof Professor && ((Professor) user).getCodigo() == ((Professor) u).getCodigo()) {
+            throw new UsuarioJaExistenteException("Professor já existe no sistema");
         }
-
-        usuarios.add(u);
-        System.out.println("Usuário adicionado com sucesso.");
     }
+
+    usuarios.add(u);
+    System.out.println("Usuário adicionado com sucesso.");
+}
+
 
     public List<Livro> buscarLivro(String titulo) {
         List<Livro> resultadoDaBusca = new ArrayList<>();
@@ -49,21 +49,18 @@ public class Biblioteca{
     }
 
 
-    public LivroFisico teste(String titulo) throws IllegalAccessException {
-
-        for (Livro livs : livros){
-            if (livs instanceof LivroFisico && ((LivroFisico) livs).getTitulo().equals(titulo)){
-                return (LivroFisico) livs;
-            } else {
-                throw new IllegalAccessException("nao e fisico");
-            }
+public LivroFisico teste(String titulo) {
+    for (Livro livs : livros) {
+        if (livs instanceof LivroFisico && ((LivroFisico) livs).getTitulo().equalsIgnoreCase(titulo)) {
+            return (LivroFisico) livs;
         }
-
-        return null;
     }
 
+    throw new LivroInexistenteException("Livro físico não encontrado com o título: " + titulo);
+}
 
-    public Usuario buscarUsuario (int id){
+
+    public Usuario buscarUsuario (Integer id){
         for(Usuario usuario : usuarios){
 
             if(usuario instanceof Aluno && ((Aluno) usuario).getMatricula() == id){
@@ -99,7 +96,7 @@ public class Biblioteca{
             if(livro.getTitulo().equalsIgnoreCase(titulo)){
                 removerLivro.add(livro);
             }else{
-                throw new LivroInexistenteException("Livro : " + titulo + " não encontrado");
+                throw new LivroInexistenteException("Livro físico não encontrado com o título: " + titulo);
             }
         }
 
@@ -143,28 +140,26 @@ public class Biblioteca{
     
 
 
-    public Usuario Autenticar(Integer id){
+   public Usuario Autenticar(Integer id) {
+    Usuario usuarioAutenticado = null;
 
-        Usuario usuarioAutenticado = null;
-        for (Usuario users : usuarios){
-            if (users instanceof Aluno && ((Aluno) users).getMatricula() == id){
-                usuarioAutenticado = users;
-                return usuarioAutenticado;
-            }
-            else if (users instanceof Professor && ((Professor) users).getCodigo() == id){
-                usuarioAutenticado = users;
-                return usuarioAutenticado;
-            }
+    for (Usuario user : usuarios) {
+        if (user instanceof Aluno && ((Aluno) user).getMatricula() == id) {
+            usuarioAutenticado = user;
+            break;
+        } else if (user instanceof Professor && ((Professor) user).getCodigo() == id) {
+            usuarioAutenticado = user;
+            break;
         }
-
-
-        if(usuarioAutenticado == null){
-            throw new UsuarioNaoEncontradoException("Nao existe");
-
-        }
-
-        return null;
     }
+
+    if (usuarioAutenticado == null) {
+        throw new UsuarioNaoEncontradoException("Usuário não encontrado");
+    }
+
+    return usuarioAutenticado;
+}
+
 
     public void livrosDisponiveis() {
         for(Livro livro : livros){
