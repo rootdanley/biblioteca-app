@@ -13,9 +13,6 @@ public class App
 {
     public static void main( String[] args ) {
         Biblioteca biblioteca = new Biblioteca();
-        Usuario usuario = new Usuario();
-        Aluno aluno = new Aluno();
-        Scanner scanner = new Scanner(System.in);
 
         Livro livro1 = new LivroFisico("Head First Java", "2023","Katie Sierra", FISICO,2);
         Livro livro7 = new LivroFisico("Clean Code", "2008", "Robert C. Martin", FISICO, 3);
@@ -70,11 +67,11 @@ public class App
 
                    if (nivelAcesso == 1){
                         System.out.println(("Aluno, Digite sua matricula: "));
-                        id = scanner.nextInt();
+                        id = sc.nextInt();
 
                     } else {
                         System.out.println(("Professor, Digite seu código: "));
-                        id = scanner.nextInt();
+                        id = sc.nextInt();
                     }
 
                     Usuario user = biblioteca.autenticarUsuario(id);
@@ -90,46 +87,53 @@ public class App
                     sc.nextLine();
 
                     switch (opcao){
-                        case 1:
-                                System.out.println();
-                                System.out.println("LIVROS DISPONIVEIS:");
-                                biblioteca.livrosDisponiveis();
-                                System.out.println();
+                      case 1:
+                              System.out.println();
+                              System.out.println("LIVROS DISPONIVEIS:");
+                              biblioteca.livrosDisponiveis();
+                              System.out.println();
 
-                                System.out.print("Deseja pegar qual livro? Digite o titulo:");
-                                String titulo = sc.nextLine();
+                              System.out.print("Deseja pegar qual livro? Digite o titulo:");
+                              String titulo = sc.nextLine();
 
-                                LivroFisico tes = biblioteca.verificaLivroFisico(titulo);
-                                user.pegarLivro(tes);
-                                System.out.println();
-                                System.out.println("LIVROS EM POSSE:");
-                                System.out.println(user.getLivrosEmPosse());
-                                break;
-                        case 2:
-                                System.out.println();
-                                System.out.println("LIVROS DISPONIVEIS:");
-                                biblioteca.livrosDisponiveis();
-                                System.out.println();
-                                break;
-                        case 3:
-                                System.out.println();
-                                System.out.print("Deseja baixar qual livro? Digite o titulo:");
-                                titulo = sc.nextLine();
-                                LivroDigital dig  = biblioteca.verificaLivroDigital(titulo);
-                                user.baixarLivro(dig);
-                                System.out.println();
-                                break;
-                        case 4:
-                                System.out.println();
-                                System.out.print("Qual livro deseja devolver? Digite o titulo: ");
-                                titulo = sc.nextLine();
-                                tes = biblioteca.verificaLivroFisico(titulo);
-                                user.devolverLivro(tes);
-                                System.out.println();
-                                biblioteca.livrosDisponiveis();
-                                break;
+                              LivroFisico tes = biblioteca.verificaLivroFisico(titulo);
+                              user.pegarLivro(tes);
+                              System.out.println();
+                              System.out.println("LIVROS EM POSSE:");
+                              System.out.println(user.getLivrosEmPosse());
+                              break;
+                      case 2:
+                              System.out.println();
+                              System.out.println("LIVROS DISPONIVEIS:");
+                              biblioteca.livrosDisponiveis();
+                              System.out.println();
+                              break;
+                      case 3:
+                              System.out.println();
+                              System.out.print("Deseja baixar qual livro? Digite o titulo:");
+                              titulo = sc.nextLine();
+                              LivroDigital dig  = biblioteca.verificaLivroDigital(titulo);
+                              user.baixarLivro(dig);
+                              System.out.println();
+                              break;
+                      case 4:
+                              System.out.println();
+                              System.out.print("Qual livro deseja devolver? Digite o titulo: ");
+                              titulo = sc.nextLine();
+                              tes = biblioteca.verificaLivroFisico(titulo);
+                              user.devolverLivro(tes);
+                              System.out.println();
+                              biblioteca.livrosDisponiveis();
+                              break;
+                      case 5:
+                        // logica ver livros em posse
 
-                        }
+                        break;
+                      case 6:
+                        // logica ver livros baixados
+                        break;
+
+                    }
 
 
 
@@ -220,6 +224,9 @@ public class App
                                 break;
                       case 6:
                         // logica de associar livro
+                        break;
+                      case 7:
+                        // logica de remover usuario
                         break;
                     }
 
