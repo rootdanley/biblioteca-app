@@ -1,15 +1,17 @@
 package com.biblioteca.entities;
 
+import com.biblioteca.entities.enums.tipoDeLivro;
+
 public class Livro{
     private String titulo;
     private String anoPublicacao;
     private String autor;
-    private String tipo;
+    private tipoDeLivro tipo;
 
     public Livro() {
     }
 
-    public Livro(String titulo, String anoPublicacao, String autor, String tipo) {
+    public Livro(String titulo, String anoPublicacao, String autor, tipoDeLivro tipo) {
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.autor = autor;

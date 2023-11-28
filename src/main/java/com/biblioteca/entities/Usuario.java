@@ -1,18 +1,16 @@
 package com.biblioteca.entities;
 import com.biblioteca.exceptions.LimiteExcedidoException;
-import com.biblioteca.exceptions.LivroInexistenteException;
 import com.biblioteca.exceptions.NaoSuportaLivroDigitalException;
 
-import javax.naming.LimitExceededException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
 
     private String nome;
-    private List<LivroFisico> livrosEmprestados = new ArrayList<>();//historico do usario
+    protected List<LivroFisico> livrosEmprestados = new ArrayList<>();//historico do usario
     private List<LivroDigital> livrosBaixados = new ArrayList<>();
-    private List<LivroFisico> livrosEmPosse = new ArrayList<>();
+    protected List<LivroFisico> livrosEmPosse = new ArrayList<>();
 
     public Usuario() {
 
@@ -39,7 +37,16 @@ public class Usuario {
 
 
     public void pegarLivro(LivroFisico l){
-        livrosEmPosse.add(l);
+        if(livrosEmPosse.contains(l)){
+            throw new LimiteExcedidoException("Não é possivel pegar o mesmo livro duas vezes!");
+        }
+        else {
+            LivroFisico livroPego = (LivroFisico) l;
+            livrosEmPosse.add(l);
+            livrosEmprestados.add(l);
+            livroPego.emprestarLivroBiblioteca();
+        }
+
     }
 
 
@@ -49,7 +56,7 @@ public class Usuario {
 
             livrosEmPosse.remove(livroDevolver);
             livrosEmprestados.add(livroDevolver);
-            livroDevolver.devolverLivro();
+            livroDevolver.devolverLivroBiblioteca();
 
         }
         else {

@@ -1,6 +1,6 @@
 package com.biblioteca.entities;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.biblioteca.entities.enums.tipoDeLivro;
 
 public class LivroFisico extends Livro {
 
@@ -11,10 +11,9 @@ public class LivroFisico extends Livro {
         super();
     }
 
-    public LivroFisico(String titulo, String anoPublicacao, String autor, String tipo, Integer copiasDisponiveis) {
+    public LivroFisico(String titulo, String anoPublicacao, String autor, tipoDeLivro tipo, Integer copiasDisponiveis) {
         super(titulo, anoPublicacao, autor, tipo);
         this.copiasDisponiveis = copiasDisponiveis;
-
     }
 
     public Integer getCopiasDisponiveis() {
@@ -25,11 +24,11 @@ public class LivroFisico extends Livro {
         this.copiasDisponiveis = copiasDisponiveis;
     }
 
-    public void emprestarLivro() {
+    public void emprestarLivroBiblioteca() {
         this.copiasDisponiveis += - 1;
     }
 
-    public void devolverLivro() {
+    public void devolverLivroBiblioteca() {
         this.copiasDisponiveis += + 1;
     }
 

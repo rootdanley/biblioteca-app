@@ -1,5 +1,6 @@
 package com.biblioteca.entities;
 import com.biblioteca.exceptions.*;
+import com.biblioteca.services.AutenticacaoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,13 @@ import java.util.List;
 public class Biblioteca{
     private List<Livro> livros = new ArrayList<>();
     private List<Usuario> usuarios = new ArrayList<>();
+    private AutenticacaoService autenticacaoService;
 
-    public Biblioteca(){ };
+
+
+    public Biblioteca() {
+        this.autenticacaoService = new AutenticacaoService(usuarios);
+    }
 
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -31,7 +37,6 @@ public class Biblioteca{
     }
 
     usuarios.add(u);
-    System.out.println("Usuário adicionado com sucesso.");
 }
 
 
@@ -49,7 +54,7 @@ public class Biblioteca{
     }
 
 
-public LivroFisico teste(String titulo) {
+public LivroFisico verificaLivroFisico(String titulo) {
     for (Livro livs : livros) {
         if (livs instanceof LivroFisico && ((LivroFisico) livs).getTitulo().equalsIgnoreCase(titulo)) {
             return (LivroFisico) livs;
@@ -57,6 +62,17 @@ public LivroFisico teste(String titulo) {
     }
 
     throw new LivroInexistenteException("Livro físico não encontrado com o título: " + titulo);
+}
+
+
+public LivroDigital verificaLivroDigital(String titulo) {
+        for(Livro livs : livros) {
+            if(livs instanceof LivroDigital && ((LivroDigital) livs).getTitulo().equalsIgnoreCase(titulo)){
+                return (LivroDigital) livs;
+            }
+        }
+
+        throw new LivroInexistenteException("Livro digital não encontrado com o título: " + titulo);
 }
 
 
@@ -84,12 +100,11 @@ public LivroFisico teste(String titulo) {
         }
         if(!livroJaExiste){
             livros.add(l);
-            System.out.println("Livro adicionado com sucesso");
         }
     }
 
 
-    public void removerLivro(String titulo) {
+    public List<Livro> removerLivro(String titulo) {
         List<Livro> removerLivro = new ArrayList<>();
 
         for(Livro livro : livros){
@@ -101,6 +116,7 @@ public LivroFisico teste(String titulo) {
         }
 
         livros.removeAll(removerLivro);
+        return removerLivro;
     }
 
     public void realizarEmprestimo(Usuario user, Livro livro){
@@ -137,29 +153,9 @@ public LivroFisico teste(String titulo) {
     }
 
 
-    
-
-
-   public Usuario Autenticar(Integer id) {
-    Usuario usuarioAutenticado = null;
-
-    for (Usuario user : usuarios) {
-        if (user instanceof Aluno && ((Aluno) user).getMatricula() == id) {
-            usuarioAutenticado = user;
-            break;
-        } else if (user instanceof Professor && ((Professor) user).getCodigo() == id) {
-            usuarioAutenticado = user;
-            break;
-        }
+public Usuario autenticarUsuario(Integer id) {
+        return autenticacaoService.autenticarUsuario(id);
     }
-
-    if (usuarioAutenticado == null) {
-        throw new UsuarioNaoEncontradoException("Usuário não encontrado");
-    }
-
-    return usuarioAutenticado;
-}
-
 
     public void livrosDisponiveis() {
         for(Livro livro : livros){

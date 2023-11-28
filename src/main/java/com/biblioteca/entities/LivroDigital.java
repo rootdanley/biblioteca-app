@@ -1,5 +1,7 @@
 package com.biblioteca.entities;
 
+import com.biblioteca.entities.enums.tipoDeLivro;
+
 public class LivroDigital extends Livro{
     private String formato;
     private Double tamanho;
@@ -10,8 +12,8 @@ public class LivroDigital extends Livro{
         super();
     }
 
-    public LivroDigital(String titulo, String anoPublicacao, String autor, String tipo, String formato, Double tamanho,
-                        String url) {
+
+    public LivroDigital(String titulo, String anoPublicacao, String autor, tipoDeLivro tipo, String formato, Double tamanho, String url) {
         super(titulo, anoPublicacao, autor, tipo);
         this.formato = formato;
         this.tamanho = tamanho;
