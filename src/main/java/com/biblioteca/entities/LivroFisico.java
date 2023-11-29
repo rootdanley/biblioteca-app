@@ -25,11 +25,11 @@ public class LivroFisico extends Livro {
     }
 
     public void emprestarLivroBiblioteca() {
-        this.copiasDisponiveis += - 1;
+        this.copiasDisponiveis -= 1;
     }
 
     public void devolverLivroBiblioteca() {
-        this.copiasDisponiveis += + 1;
+        this.copiasDisponiveis += 1;
     }
 
     @Override

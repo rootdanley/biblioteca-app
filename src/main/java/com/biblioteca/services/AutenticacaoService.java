@@ -9,7 +9,6 @@ import java.util.List;
 
 public class AutenticacaoService {
 
-
     private List<Usuario> usuarios;
 
     public AutenticacaoService(List<Usuario> usuarios) {

@@ -3,6 +3,7 @@ package com.biblioteca;
 import com.biblioteca.entities.*;
 import com.biblioteca.exceptions.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static com.biblioteca.entities.enums.tipoDeLivro.DIGITAL;
@@ -20,7 +21,6 @@ public class App
         Livro livro9 = new LivroFisico("The Art of Computer Programming", "1968", "Donald E. Knuth", FISICO, 5);
         Livro livro10 = new LivroFisico("Effective Java", "2017", "Joshua Bloch", FISICO, 4);
 
-
         Livro livro2 = new LivroFisico("Java", "2023","Katie Sierra", FISICO,2);
         Livro livro3 = new LivroFisico("EXtreme Go Horse", "2016", "Mario Marolo", FISICO, 3);
         Livro livro4 = new LivroDigital("Codigo Limpo","2009","Robert C Martin",DIGITAL,"PDF",65100.0,"https://github" +
@@ -34,8 +34,12 @@ public class App
         Usuario user2 = new Professor("Carlos",12);
 
 
+
+
         biblioteca.cadastrarUsuario(user1);
         biblioteca.cadastrarUsuario(user2);
+
+        user2.pegarLivro((LivroFisico) livro2);
 
         Scanner sc = new Scanner(System.in);
 
@@ -51,13 +55,27 @@ public class App
         biblioteca.adicionarLivro(livro10);
 
 
+        String titulo;
+        Integer id = null;
+
         try {
 
             System.out.println("Qual nivel de acesso (1) Aluno | (2) Professor | (3) Bibliotecario: ");
             int nivelAcesso = sc.nextInt();
 
             int opcao = 0;
-            Integer id = null;
+
+
+            if (nivelAcesso == 1){
+                System.out.println(("Aluno, Digite sua matricula: "));
+                id = sc.nextInt();
+
+            } else if(nivelAcesso == 2) {
+                System.out.println(("Professor, Digite seu código: "));
+                id = sc.nextInt();
+            } else {
+              System.out.println("Bem vindo, bibliotecario!");
+            }
 
 
 
@@ -65,14 +83,6 @@ public class App
 
                 if(nivelAcesso == 1 || nivelAcesso == 2){
 
-                   if (nivelAcesso == 1){
-                        System.out.println(("Aluno, Digite sua matricula: "));
-                        id = sc.nextInt();
-
-                    } else {
-                        System.out.println(("Professor, Digite seu código: "));
-                        id = sc.nextInt();
-                    }
 
                     Usuario user = biblioteca.autenticarUsuario(id);
 
@@ -94,7 +104,7 @@ public class App
                               System.out.println();
 
                               System.out.print("Deseja pegar qual livro? Digite o titulo:");
-                              String titulo = sc.nextLine();
+                              titulo = sc.nextLine();
 
                               LivroFisico tes = biblioteca.verificaLivroFisico(titulo);
                               user.pegarLivro(tes);
@@ -126,11 +136,14 @@ public class App
                               biblioteca.livrosDisponiveis();
                               break;
                       case 5:
-                        // logica ver livros em posse
+                        System.out.println();
+                        System.out.println(user.getLivrosEmPosse());
+
 
                         break;
                       case 6:
-                        // logica ver livros baixados
+                        System.out.println();
+                        System.out.println(user.getLivrosBaixados());
                         break;
 
                     }
@@ -139,8 +152,8 @@ public class App
 
                 } else if(nivelAcesso == 3){
                     System.out.print("O que deseja realizar? (1) Buscaro Usuario | (2) Cadastrar Livro | (3) Buscar " +
-                        "Livro | (4) Ver Livros | (5) Remover Livro | (6) Associar Autor a livro | (7) Remover " +
-                        "Usuarios | " +
+                        "Livro | (4) Ver Livros | (5) Remover Livro | (6) Associar Autor a livro | " +
+                        "(7) Emprestar Livro | (8) Devolver Livro | (9) Exibir Usuarios | " +
                         "(0) " +
                         "Sair do " +
                         "programa: ");
@@ -151,7 +164,6 @@ public class App
                       case 1:
                               System.out.println("Digite o id:");
                               id = sc.nextInt();
-
 
                               System.out.println(biblioteca.buscarUsuario(id));
                               System.out.println();
@@ -164,7 +176,7 @@ public class App
                             sc.nextLine();
                             if (tipoLivro == 1){
                               System.out.print("Titulo: ");
-                              String titulo = sc.nextLine();
+                              titulo = sc.nextLine();
                               System.out.print("Ano de Publicação:");
                               String ano = sc.nextLine();
                               System.out.print("Autor: ");
@@ -179,7 +191,7 @@ public class App
 
                             }else if (tipoLivro == 2){
                               System.out.print("Titulo: ");
-                              String titulo = sc.nextLine();
+                              titulo = sc.nextLine();
                               System.out.print("Ano de Publicação: ");
                               String ano = sc.nextLine();
                               System.out.print("Autor: ");
@@ -198,11 +210,10 @@ public class App
                               System.out.println("Livro cadastrado com sucesso!");
                               break;
                             }
-
                       case 3:
                               System.out.println();
                               System.out.println("Digite o titulo do livro:");
-                              String titulo = sc.nextLine();
+                              titulo = sc.nextLine();
 
                               System.out.println(biblioteca.buscarLivro(titulo));
                               System.out.println();
@@ -223,11 +234,45 @@ public class App
                                 System.out.println();
                                 break;
                       case 6:
-                        // logica de associar livro
+
                         break;
                       case 7:
-                        // logica de remover usuario
+                        // logica de emprestrar livro
+                        System.out.print("Digite o id do usuario: ");
+                        int idUsuario = sc.nextInt();
+
+                        sc.nextLine();
+                        System.out.println("Digite o titulo do livro: ");
+                        titulo = sc.nextLine();
+
+
+                        LivroFisico liv = biblioteca.verificaLivroFisico(titulo);
+                        Usuario user = biblioteca.buscarUsuario(idUsuario);
+
+                        biblioteca.realizarEmprestimo(user,liv);
+
                         break;
+                      case 8:
+                        System.out.print("Digite o id do usuario: ");
+                        idUsuario = sc.nextInt();
+
+                        sc.nextLine();
+                        System.out.println("Digite o titulo do livro: ");
+                        titulo = sc.nextLine();
+
+                        liv = biblioteca.verificaLivroFisico(titulo);
+                        user = biblioteca.buscarUsuario(idUsuario);
+
+                        biblioteca.devolverEmprestimo(user,liv);
+
+
+                        break;
+                      case 9:
+                        System.out.println();
+                        System.out.println(biblioteca.getUsuarios());
+
+                        break;
+
                     }
 
                 }
@@ -250,8 +295,10 @@ public class App
             System.out.println(e.getMessage());
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+          System.out.println("Tipo de dado invalido!");
         } finally {
-            System.out.println("fim do programa");
+            System.out.println("Programa Encerrado");
         }
     }
 

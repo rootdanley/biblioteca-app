@@ -4,6 +4,7 @@ import com.biblioteca.services.AutenticacaoService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Biblioteca{
@@ -50,6 +51,11 @@ public class Biblioteca{
                 }
             }
         }
+
+        if(resultadoDaBusca.isEmpty()){
+            System.out.println("Veja se escreveu certo");
+        }
+
         return resultadoDaBusca;
     }
 
@@ -90,17 +96,16 @@ public LivroDigital verificaLivroDigital(String titulo) {
     }
 
     public void adicionarLivro(Livro l) {
-        boolean livroJaExiste = false;
+
         for (Livro livs : livros) {
             if ((livs instanceof LivroDigital || livs instanceof LivroFisico) &&
                     livs.getTitulo().equals(((Livro) l).getTitulo())) {
-                livroJaExiste = true;
+
                 throw new LivroJaExisteException("Livro ja existe no sistema");
             }
         }
-        if(!livroJaExiste){
-            livros.add(l);
-        }
+
+      livros.add(l);
     }
 
 
@@ -119,41 +124,18 @@ public LivroDigital verificaLivroDigital(String titulo) {
         return removerLivro;
     }
 
-    public void realizarEmprestimo(Usuario user, Livro livro){
 
+
+    public void realizarEmprestimo(Usuario user, LivroFisico livro){
+        user.pegarLivro(livro);
     }
 
-    public void devolverEmprestimo(Usuario user, Livro livro){
-      if(livro instanceof LivroFisico){
-          LivroFisico livroDevolver = (LivroFisico) livro;
-
-          Usuario usuarioEncontrado = null;
-          for(Usuario usuario : usuarios){
-              if(usuario.equals(user)){
-                  usuarioEncontrado = usuario;
-                  break;
-              }
-          }
-
-          if(usuarioEncontrado == null){
-              throw new UsuarioNaoEncontradoException("Usuario com não encontrado");
-          }
-
-          if(usuarioEncontrado.getLivrosEmPosse().contains(livroDevolver)){
-              usuarioEncontrado.devolverLivro(livroDevolver);
-          } else {
-              throw new NaoPossuiLivroException("Usuario não possui o livro");
-          }
-
-      }
-      else {
-          throw new NaoSuportaLivroDigitalException("Devolução de Livro Digital não suportada.");
-      }
-
+    public void devolverEmprestimo(Usuario user, LivroFisico livro){
+        user.devolverLivro(livro);
     }
 
 
-public Usuario autenticarUsuario(Integer id) {
+    public Usuario autenticarUsuario(Integer id) {
         return autenticacaoService.autenticarUsuario(id);
     }
 

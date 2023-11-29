@@ -25,8 +25,9 @@ public class Professor extends Usuario{
     @Override
     public String toString() {
       return new StringBuilder(super.toString())
-        .append(", Codigo=").append(codigo)
-        .toString();
+          .append(", Codigo=").append(codigo)
+          .append(" }")
+          .toString();
     }
 
 }

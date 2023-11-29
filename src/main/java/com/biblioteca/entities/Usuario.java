@@ -1,5 +1,6 @@
 package com.biblioteca.entities;
 import com.biblioteca.exceptions.LimiteExcedidoException;
+import com.biblioteca.exceptions.LivroInexistenteException;
 import com.biblioteca.exceptions.NaoSuportaLivroDigitalException;
 
 import java.util.ArrayList;
@@ -20,10 +21,21 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public List<LivroDigital> getLivrosBaixados() {
+        return livrosBaixados;
+    }
+
     public List<LivroFisico> getLivrosEmPosse() {
+        if(livrosEmPosse.isEmpty()){
+            throw new LivroInexistenteException("Não tem livros");
+        }
+
         return livrosEmPosse;
     }
     public List<LivroFisico> getLivrosEmprestados() {
+        if(livrosEmPosse.isEmpty()){
+            throw new LivroInexistenteException("Não tem livros");
+        }
         return livrosEmprestados;
     }
 
@@ -41,22 +53,20 @@ public class Usuario {
             throw new LimiteExcedidoException("Não é possivel pegar o mesmo livro duas vezes!");
         }
         else {
-            LivroFisico livroPego = (LivroFisico) l;
+
             livrosEmPosse.add(l);
             livrosEmprestados.add(l);
-            livroPego.emprestarLivroBiblioteca();
+            l.emprestarLivroBiblioteca();
         }
 
     }
 
 
     public void devolverLivro(LivroFisico livro) {
-        if(livro instanceof LivroFisico) {
-            LivroFisico livroDevolver  = (LivroFisico) livro;
+        if(livro != null) {
 
-            livrosEmPosse.remove(livroDevolver);
-            livrosEmprestados.add(livroDevolver);
-            livroDevolver.devolverLivroBiblioteca();
+          livrosEmPosse.remove(livro);
+          (livro).devolverLivroBiblioteca();
 
         }
         else {
@@ -75,7 +85,6 @@ public class Usuario {
         sb.append(", LivrosEmprestados=").append(livrosEmprestados);
         sb.append(", LivrosBaixados=").append(livrosBaixados);
         sb.append(", LivrosEmPosse=").append(livrosEmPosse);
-        sb.append('}');
         return sb.toString();
     }
 
