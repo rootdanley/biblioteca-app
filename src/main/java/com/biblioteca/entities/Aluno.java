@@ -28,7 +28,7 @@ public class Aluno extends Usuario{
     @Override
     public void pegarLivro(LivroFisico l) {
 
-    super.pegarLivro(l);
+        super.pegarLivro(l);
 
         if (livrosEmPosse.size() > 5) {
             throw new LimiteExcedidoException("Limite de 5 livros atingidos para alunos.");

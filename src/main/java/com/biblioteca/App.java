@@ -132,6 +132,7 @@ public class App
                               titulo = sc.nextLine();
                               tes = biblioteca.verificaLivroFisico(titulo);
                               user.devolverLivro(tes);
+                              System.out.println("Livro devolvido");
                               System.out.println();
                               biblioteca.livrosDisponiveis();
                               break;
@@ -227,13 +228,25 @@ public class App
                               break;
                       case 5: // corrigir logica do metodo remover livro
                                 System.out.println();
-                                System.out.println("Digite o titulo do livro para remover: ");
+                                System.out.print("Digite o titulo do livro para remover: ");
                                 titulo = sc.nextLine();
                                 System.out.println(biblioteca.removerLivro(titulo));
 
                                 System.out.println();
                                 break;
                       case 6:
+
+                        System.out.println("Digite o titulo do livro: ");
+                        titulo = sc.nextLine();
+
+                        System.out.print("Digite o novo autor: ");
+                        String autor = sc.nextLine();
+
+                        LivroFisico livs = biblioteca.verificaLivroFisico(titulo);
+                        livs.setAutor(autor);
+
+                        System.out.println("ALTERAÇÃO FEITA");
+                        System.out.println(biblioteca.buscarLivro(titulo));
 
                         break;
                       case 7:
@@ -242,7 +255,7 @@ public class App
                         int idUsuario = sc.nextInt();
 
                         sc.nextLine();
-                        System.out.println("Digite o titulo do livro: ");
+                        System.out.print("Digite o titulo do livro: ");
                         titulo = sc.nextLine();
 
 
@@ -250,6 +263,7 @@ public class App
                         Usuario user = biblioteca.buscarUsuario(idUsuario);
 
                         biblioteca.realizarEmprestimo(user,liv);
+                        System.out.println("Livro emprestado!");
 
                         break;
                       case 8:
@@ -264,6 +278,7 @@ public class App
                         user = biblioteca.buscarUsuario(idUsuario);
 
                         biblioteca.devolverEmprestimo(user,liv);
+                        System.out.println("Livro devolvido!");
 
 
                         break;

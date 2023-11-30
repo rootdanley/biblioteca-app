@@ -53,12 +53,10 @@ public class Usuario {
             throw new LimiteExcedidoException("Não é possivel pegar o mesmo livro duas vezes!");
         }
         else {
-
             livrosEmPosse.add(l);
             livrosEmprestados.add(l);
             l.emprestarLivroBiblioteca();
         }
-
     }
 
 
