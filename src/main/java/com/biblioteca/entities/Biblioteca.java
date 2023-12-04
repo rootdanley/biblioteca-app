@@ -111,14 +111,19 @@ public LivroDigital verificaLivroDigital(String titulo) {
 
     public List<Livro> removerLivro(String titulo) {
         List<Livro> removerLivro = new ArrayList<>();
-
+        boolean achou = false;
         for(Livro livro : livros){
             if(livro.getTitulo().equalsIgnoreCase(titulo)){
                 removerLivro.add(livro);
-            }else{
-                throw new LivroInexistenteException("Livro físico não encontrado com o título: " + titulo);
+                System.out.println("Livro " + titulo + " removido com sucesso!");
+                achou = true;
             }
         }
+
+        if(!achou) {
+            throw new LivroInexistenteException("Livro não existe: " + titulo);
+        }
+
 
         livros.removeAll(removerLivro);
         return removerLivro;
